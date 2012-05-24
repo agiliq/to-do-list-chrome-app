@@ -2,7 +2,7 @@
   "name": "To Do List",
   "version": "1.0",
   "manifest_version": 2,
-  "description": "It is a chrome app that allows users to add various lists , edit,move and delete them . The user can add the a of tasks to each list . ",
+  "description": "Easiest way to manage your todo list. Works offline.",
   "app" : {
     "launch" : {
       "local_path" : "index.html"
