@@ -1,0 +1,72 @@
+body { color:black; background-color: black;}
+
+body div.container { margin-left: 10%; margin-right:10%; width: auto;}
+
+.list { position: relative; height: 350px; }
+
+.zoomed {
+    zoom: 130%;
+}
+.zoom-normal {zoom: 100%;}
+
+.item-input { position: absolute; bottom: 10px;  }
+
+.item-text {
+    display: block;
+    margin-top: -17px;
+    margin-left:20px;
+    margin-right: 40px;
+
+    
+}
+
+li input.cb_item { /*margin-left:-12px;*/ margin-top: -1px; /*margin-right: 5px;*/}
+
+.top-centered { margin-left: 20%; padding-bottom: 30px; padding-top: 5px;}
+
+.list .list-header {
+    font-size: 13pt;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.list-header-text { color: white; margin-left: 10px; margin-top: 25px; }
+
+.header_to_well {
+    width: 115%;
+    height: 40px;
+    padding-top: 10px;
+    margin-left: -20px;
+    margin-top: -20px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    background-image: -moz-linear-gradient(top, #0088cc, #0044cc);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#0088cc), to(#0044cc));
+    background-image: -webkit-linear-gradient(top, #0088cc, #0044cc);
+    background-image: -o-linear-gradient(top, #0088cc, #0044cc);
+    background-image: linear-gradient(to bottom, #0088cc, #0044cc);
+}
+
+.header-icons { margin-right: 5px; opacity: 0.4;}
+.header-icons:hover {opacity: 1; zoom: 120%;}
+.header-icons i { margin-left:5px; }
+
+.item-icons { margin-right: 5px; opacity: 0.4; }
+.item-icons:hover {opacity: 1; zoom: 120%; }
+.item-icons i { margin-left: 5px; }
+
+.delete-item:hover, .delete-list:hover, .move-list:hover, .move-item:hover { cursor: pointer }
+
+/*
+.delete-list{opacity: 0.3; }
+
+.delete-list:hover { zoom: 160%;opacity:1; cursor: pointer;}
+.delete-item { zoom: 80%; opacity:0.3; margin-right:10px;}
+.delete-item:hover { zoom: 130%;  opacity:1; cursor: pointer; margin-right:5px;}
+
+*/
+
+.done_item { text-decoration: line-through; }
+.nano {width:111%; height: 80%;margin-left:-13px; margin-top: 10px;}
+.nano .pane {width:5px; }
+

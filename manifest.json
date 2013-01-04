@@ -1,13 +1,13 @@
 {
   "name": "To Do List",
-  "version": "1.0",
+  "version": "1.2",
   "manifest_version": 2,
-  "description": "Easiest way to manage your todo list. Works offline.",
+  "description": "Simple and best way to organise work and increase productivity. ",
   "app" : {
     "launch" : {
       "local_path" : "index.html"
     }
   },
-  "icons" : {"16" : "to-do-list.jpg","48" : "to-do-list.jpg","128" : "to-do-list.jpg"},
+  "icons" : {"16" : "to-do-list.png","48" : "to-do-list.png","128" : "to-do-list.png"},
   "permissions": []
 }

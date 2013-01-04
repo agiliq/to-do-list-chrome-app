@@ -1,159 +1,35 @@
 <!DOCTYPE html>
-<html>
-  <head>
-     <script type="text/javascript" src="lib/jquery-1.7.2.min.js" ></script>
-     <script type="text/javascript" src="lib/jquery-ui.js"> </script>
-     <script type="text/javascript" src="todolist.js" ></script>   
-     
-     <style>
-        body {
-        
-          background-color : rgb(17,27,46);
-        }
-       .singlelist{
-        width : 350px;
-        max-width:350px;
-        height : 300px ;
-        background-color : #FF99FF;
-        //border-style : dashed;
-        background-image: -webkit-gradient(linear,left bottom,left top,color-stop(1, rgb(255,255,255)),color-stop(0, rgb(100,100,20)));
-	background-image: -moz-linear-gradient(center bottom,rgb(255,255,255) 100%,rgb(220,220,220) 0%);
-	border-radius: 5px;
-	border: 1px dashed #000;
-	-webkit-box-shadow: 0 0 5px #000;
-        // background-color : yellow;
-        
-        }
-        table#table_todolist td{
-        padding : 50px 50px 50px 50px;
-        }
-        div.divlist {
-          height : 190px;
-          overflow : auto;
-        }
-        div.listcontainer{
-          position : relative ;
-        
-        }
-       
-        
-        button#btn_newlist{
-           color : black;
-           background-color:#D8D8D8 ;
-           height : 35px;
-        }
-        button#btn_newlist:hover{
-           background-color : red;
-           color:white;
-        }
-        
-        li.listitem_class{
-          position : relative ; 
-        }
-        
-        li.listitem_class span{
-          max-width : 75%;
-          display:inline-block;
-          word-wrap : break-word;
-          vertical-align : top;
-          
-        }
-        li.lichecked span{
-        
-          text-decoration : line-through;
-        }
-        .listname {
-           border : none;
-           //background-color : #FF99FF;
-           word-wrap : break-word;
-           overflow : hidden;
-           width : 250px;
-           font-size : 15pt;  
-           text-align : center;      
-           font-weight : bold;
-           
-        }
-        input#input_newlist{
-          size : 80pt;
-          width : 70%;
-          height : 35px;
-           
-        }
-       input.inputlistitem_class{
-        border-style: solid; 
-       border-width: 0px 0px 10px 0px; 
-       border-color: transparent;
-         background-color : white;
-       }
-       input.listitem_input{
-        width : 70% ;
-        height : 20px;
-       }
-       .listitem_class{
-        position : relative;
-        
-       }
-       .listitem_image{
-         position : absolute;
-         top : 0px;
-         right : 5px;
-         display:block;
-       }
-       .handle_move{
-         top : 0px;
-         position : absolute;
-         right : 40px;
-         display:block;
-       }
-       .list_icons_move{
-         position : absolute;
-         top : 5px;
-         right : 45px;
-       }
-       
-       .list_icons_trash{
-        
-        position : absolute;
-        height :  30px;
-        width : 35px;
-        top : 0px;
-        right : 0px;
-       }
-       #bigname{
-        z-index: -10;
-	    position: absolute;
-	    top: 40%;
-	    width: 100%;
-	    text-align: center;
-	    text-transform: uppercase;
-        
-       }
-       #bigname p{
-        font-size: 120px;
-		font-weight: bold;
-		color: rgb(17,27,55);
-		text-shadow: 0 -5px #000, 0 1px rgb(17,27,75); 
-       
-       }
-       .s3 span{
-         display : inline-block;
-       }
-             
-     </style>
-  </head>
-  <body>
-    <center>
-    <input type="text" id="input_newlist"  />
-   
-    <button id="btn_newlist">NewList</button>
-    
-   </center>  
-     <center>
-     <div id="todolist">
-     
-     </div>
-     </center>
-      <div id="bigname"><p>Todo App</p></div>
-  </body>
-</html>
+<html lang='en'>
+    <head>
+        <title>Todo List </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="css/nanoscroller.css" rel="stylesheet" />
+        <link href="css/bootstrap.css" rel="stylesheet" />
+        <link href="css/bootstrap-responsive.css" rel="stylesheet" />
+        <link href="css/style.css" rel="stylesheet" />
 
+    </head>
+    <body>
+        <div class='container'>
+            <div class='form-inline top-centered'>
+                <input type='text' class='input-xxlarge' placeholder='Enter To do list name and submit to create..' id='list-name-input' />
+                <input type='button' class='btn btn-primary' value='Create' id='create-list' />
+        </div>
+            <div class='row' id='list-row'>
+                <!-- 
+                <div class='well span3 a' >
+
+                </div>
+                Add todo lists in the above form
+                -->
+
+            </div>
+        </div>
+
+        
+        <script type="text/javascript" src='lib/jquery-1.7.2.min.js' ></script>
+        <script type="text/javascript" src='lib/jquery-ui.js' ></script>
+        <script type="text/javascript" src="lib/jquery.nanoscroller.js"></script>
+        <script type="text/javascript" src='js/script.js' ></script>
+    </body>
+</html>
