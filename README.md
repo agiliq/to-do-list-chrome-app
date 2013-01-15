@@ -1,6 +1,6 @@
 Offline Todo App.
 Get it from app store at
-[https://chrome.google.com/webstore/detail/pmpdkgedikcgfpjbcafckjabeeialdel/related](https://chrome.google.com/webstore/detail/pmpdkgedikcgfpjbcafckjabeeialdel/related)
+[https://chrome.google.com/webstore/detail/pmpdkgedikcgfpjbcafckjabeeialdel](https://chrome.google.com/webstore/detail/pmpdkgedikcgfpjbcafckjabeeialdel)
 
 ### Features
 1. Create todo list
