@@ -14,6 +14,7 @@
             <div class='form-inline top-centered'>
                 <input type='text' class='input-xxlarge' placeholder='Enter To do list name and submit to create..' id='list-name-input' />
                 <input type='button' class='btn btn-primary' value='Create' id='create-list' />
+                <a href='#export_modal' role="button" class='btn btn-primary'  data-toggle='modal' id='show_export_modal'> Export </a>
         </div>
             <div class='row' id='list-row'>
                 <!-- 
@@ -26,10 +27,26 @@
             </div>
         </div>
 
+<div id="export_modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="export_modal_label" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+    <h3>Data</h3>
+  </div>
+  <div class="modal-body">
+      <p>Please copy below data, save somewhere on your system/email and paste when importing data</p>
+<textarea rows=10 cols=80></textarea>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+  </div>
+</div>
+
         
         <script type="text/javascript" src='lib/jquery-1.7.2.min.js' ></script>
         <script type="text/javascript" src='lib/jquery-ui.js' ></script>
         <script type="text/javascript" src="lib/jquery.nanoscroller.js"></script>
+        <script type="text/javascript" src="lib/bootstrap-modal.js"></script>
         <script type="text/javascript" src='js/script.js' ></script>
+
     </body>
 </html>

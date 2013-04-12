@@ -284,3 +284,7 @@ $(".list .content").live
     render()
 
 
+$("#export_modal").on "show", ->
+  $("#export_modal textarea").text localStorage.lists
+  
+

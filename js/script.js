@@ -311,4 +311,8 @@
     }
   });
 
+  $("#export_modal").on("show", function() {
+    return $("#export_modal textarea").text(localStorage.lists);
+  });
+
 }).call(this);
