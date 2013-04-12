@@ -70,7 +70,7 @@ li input.cb_item { /*margin-left:-12px;*/ margin-top: -1px; /*margin-right: 5px;
 .nano {width:111%; height: 80%;margin-left:-13px; margin-top: 10px;}
 .nano .pane {width:5px; }
 
-#export_modal textarea { width: 450px; }
+#import_modal textarea, #export_modal textarea { width: 450px; }
 
 .settings { border: 1px solid white; height: 200px; margin-bottom: 15px; border-radius: 10px;}
 .hide-settings { background-color: orange; border-top-left-radius: 8px; border-top-right-radius: 8px; color: black; font-weight: bold; text-align: center;}

@@ -312,7 +312,7 @@
   });
 
   $("#export_modal").on("show", function() {
-    return $("#export_modal textarea").text(localStorage.lists);
+    return $("#export_modal textarea").val(localStorage.lists);
   });
 
   $("#show-settings").on("click", function() {
@@ -321,6 +321,38 @@
 
   $(".hide-settings").on('click', function() {
     return $(".settings").slideUp("slow");
+  });
+
+  $("#import_data").on('click', function() {
+    var data, import_type, k, old_data, old_len, v;
+    data = '';
+    try {
+      data = $("#import_modal textarea").val();
+      JSON.parse(data);
+    } catch (e) {
+      alert("The data you have pasted is in invalid format. Please check again");
+      return;
+    }
+    if ($("input[name=import-type]:checked").length === 0) {
+      alert("Please select import type");
+      return;
+    }
+    import_type = $("input[name=import-type]:checked").val();
+    if (import_type === 'add') {
+      old_data = JSON.parse(localStorage.lists);
+      data = JSON.parse(data);
+      old_len = Object.keys(old_data).length;
+      for (k in data) {
+        v = data[k];
+        old_data[old_len] = v;
+        old_len++;
+      }
+      localStorage.lists = JSON.stringify(old_data);
+      return render();
+    } else if (import_type === 'replace') {
+      localStorage.lists = data;
+      return render();
+    }
   });
 
 }).call(this);
