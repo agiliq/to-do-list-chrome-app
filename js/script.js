@@ -315,4 +315,12 @@
     return $("#export_modal textarea").text(localStorage.lists);
   });
 
+  $("#show-settings").on("click", function() {
+    return $(".settings").slideDown('slow');
+  });
+
+  $(".hide-settings").on('click', function() {
+    return $(".settings").slideUp("slow");
+  });
+
 }).call(this);

@@ -287,4 +287,8 @@ $(".list .content").live
 $("#export_modal").on "show", ->
   $("#export_modal textarea").text localStorage.lists
   
+$("#show-settings").on "click", ->
+  $(".settings").slideDown('slow')
 
+$(".hide-settings").on 'click', ->
+  $(".settings").slideUp("slow")
