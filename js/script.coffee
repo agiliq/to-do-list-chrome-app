@@ -313,10 +313,10 @@ $("#import_data").on 'click', ->
       old_data[old_len] = v
       old_len++
     localStorage.lists = JSON.stringify old_data
-    render()
 
   else if import_type == 'replace'
     localStorage.lists = data
-    render()
+  alert 'Data imported successfully'
+  window.location.reload()
 
 

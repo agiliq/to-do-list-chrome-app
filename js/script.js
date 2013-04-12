@@ -348,11 +348,11 @@
         old_len++;
       }
       localStorage.lists = JSON.stringify(old_data);
-      return render();
     } else if (import_type === 'replace') {
       localStorage.lists = data;
-      return render();
     }
+    alert('Data imported successfully');
+    return window.location.reload();
   });
 
 }).call(this);
