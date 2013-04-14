@@ -33,10 +33,10 @@ li input.cb_item { /*margin-left:-12px;*/ margin-top: -1px; /*margin-right: 5px;
 .list-header-text { color: white; margin-left: 10px; margin-top: 25px; }
 
 .header_to_well {
-    width: 115%;
     height: 40px;
     padding-top: 10px;
     margin-left: -20px;
+    margin-right: -20px;
     margin-top: -20px;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
