@@ -200,7 +200,7 @@ render = ->
                   <span contentEditable='true' class='item-text "+done_item_class+"' maxlength='15' >"+item_val[0]+"</span>
                   </li>"
 
-            ele += "</ul></div></div><div class='item-input'><input type='text' class='input-large' id='item-input-"+key+"' placeholder='Enter todo and hit enter' /></div></div>"
+            ele += "</ul></div></div><div class='item-input'><input type='text' class='span3' id='item-input-"+key+"' placeholder='Enter todo and hit enter' /></div></div>"
 
 
             $("#list-row").append(ele)

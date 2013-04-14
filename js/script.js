@@ -210,7 +210,7 @@
           }
           ele += "<li class='item-" + item_key + "'>                  <input type='checkbox' class='cb_item' " + checked + " />                  <div class='item-icons pull-right'><i class='icon-move move-item' ></i><i class='icon-remove delete-item'></i></div>                  <span contentEditable='true' class='item-text " + done_item_class + "' maxlength='15' >" + item_val[0] + "</span>                  </li>";
         }
-        ele += "</ul></div></div><div class='item-input'><input type='text' class='input-large' id='item-input-" + key + "' placeholder='Enter todo and hit enter' /></div></div>";
+        ele += "</ul></div></div><div class='item-input'><input type='text' class='span3' id='item-input-" + key + "' placeholder='Enter todo and hit enter' /></div></div>";
         $("#list-row").append(ele);
       }
     }
