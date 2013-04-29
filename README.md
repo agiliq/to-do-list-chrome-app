@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/agiliq/to-do-list-chrome-app.png?branch=master)](https://travis-ci.org/agiliq/to-do-list-chrome-app)
+
 Offline Todo App.
 Get it from app store at
 [https://chrome.google.com/webstore/detail/pmpdkgedikcgfpjbcafckjabeeialdel](https://chrome.google.com/webstore/detail/pmpdkgedikcgfpjbcafckjabeeialdel)
