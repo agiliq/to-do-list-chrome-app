@@ -9,5 +9,7 @@
     }
   },
   "icons" : {"16" : "to-do-list.png","48" : "to-do-list.png","128" : "to-do-list.png"},
-  "permissions": []
+  "permissions": [
+    "storage"
+  ]
 }
