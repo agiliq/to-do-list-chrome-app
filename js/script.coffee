@@ -320,3 +320,23 @@ $("#import_data").on 'click', ->
   window.location.reload()
 
 
+upload_and_replace_with_current_data = ->
+  ans = confirm "This will completely remove data on the server by replacing with current local data. Are you sure?"
+  if ans
+    chrome.storage.sync.set "lists": localStorage.lists, ->
+      alert "Current data successfully saved to server."
+
+download_and_replace_current_data = ->
+  ans = confirm "This will completely remove local data by replacing with data from server. Are you sure?"
+  if ans
+    chrome.storage.sync.get "lists", (res) ->
+      localStorage.lists = res.lists
+      render()
+      
+
+$("#upload_sync").click ->
+  upload_and_replace_with_current_data()
+
+$("#download_sync").click ->
+  download_and_replace_current_data()
+

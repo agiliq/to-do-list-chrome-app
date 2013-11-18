@@ -1,5 +1,5 @@
 (function() {
-  var create_new_list, move_item_start, move_list_start, render, update_item, update_listname, validate_list_name_input;
+  var create_new_list, download_and_replace_current_data, move_item_start, move_list_start, render, update_item, update_listname, upload_and_replace_with_current_data, validate_list_name_input;
 
   $(document).ready(function() {
     return render();
@@ -353,6 +353,37 @@
     }
     alert('Data imported successfully');
     return window.location.reload();
+  });
+
+  upload_and_replace_with_current_data = function() {
+    var ans;
+    ans = confirm("This will completely remove data on the server by replacing with current local data. Are you sure?");
+    if (ans) {
+      return chrome.storage.sync.set({
+        "lists": localStorage.lists
+      }, function() {
+        return alert("Current data successfully saved to server.");
+      });
+    }
+  };
+
+  download_and_replace_current_data = function() {
+    var ans;
+    ans = confirm("This will completely remove local data by replacing with data from server. Are you sure?");
+    if (ans) {
+      return chrome.storage.sync.get("lists", function(res) {
+        localStorage.lists = res.lists;
+        return render();
+      });
+    }
+  };
+
+  $("#upload_sync").click(function() {
+    return upload_and_replace_with_current_data();
+  });
+
+  $("#download_sync").click(function() {
+    return download_and_replace_current_data();
   });
 
 }).call(this);

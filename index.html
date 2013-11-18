@@ -20,8 +20,11 @@
         <div class='settings hide'>
             <div class='hide-settings'>Click to HIDE this</div>
             <div class='settings-content'>
+                <!--
                 <a href='#export_modal' role="button" class='btn btn-primary'  data-toggle='modal' id='show_export_modal'> Export </a>
                 <a href='#import_modal' role="button" class='btn btn-primary'  data-toggle='modal' id='show_import_modal'> Import </a>
+                -->
+                <a href="#sync_modal" class="btn btn-primary" data-toggle="modal" id="show_sync_modal">Sync</a>
             </div>
             
         </div>
@@ -36,6 +39,24 @@
             </div>
         </div>
 
+<div id="sync_modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="sync_modal_label" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+    <h3>Sync Data</h3>
+  </div>
+  <div class="modal-body">
+    <fieldset>
+        <legend>Import Type</legend>
+        <p><button class="btn btn-primary" id="download_sync" msg="Current local data will be erased">Download and replace  local data </button> </p>
+        <p><button class="btn btn-primary" id="upload_sync" msg="Data saved in server will be erased">Upload current local data </button></p>
+        <!--  <p><button class="btn" id="merge-sync">Merge local data with server data</button></p> -->
+    </fieldset>
+    <br>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+  </div>
+</div>
 <div id="export_modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="export_modal_label" aria-hidden="true">
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>

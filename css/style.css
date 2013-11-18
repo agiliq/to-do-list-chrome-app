@@ -76,3 +76,4 @@ li input.cb_item { /*margin-left:-12px;*/ margin-top: -1px; /*margin-right: 5px;
 .hide-settings { background-color: orange; border-top-left-radius: 8px; border-top-right-radius: 8px; color: black; font-weight: bold; text-align: center;}
 .hide-settings:hover { cursor: pointer; }
 .settings-content { padding: 20px; }
+p button { width: 250px; }
