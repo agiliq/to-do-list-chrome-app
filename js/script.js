@@ -1,5 +1,5 @@
 (function() {
-  var create_new_list, download_and_replace_current_data, move_item_start, move_list_start, render, render_color_labels, update_item, update_listname, upload_and_replace_with_current_data, validate_list_name_input,
+  var create_new_list, download_and_replace_current_data, initial_settings, move_item_start, move_list_start, render, render_color_labels, update_item, update_listname, upload_and_replace_with_current_data, validate_list_name_input,
     __indexOf = Array.prototype.indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
 
   $(document).ready(function() {
@@ -10,6 +10,18 @@
       color: "green"
     });
   });
+
+  initial_settings = function() {
+    var settings;
+    if (!localStorage.settings) localStorage.settings = "{}";
+    settings = JSON.parse(localStorage.settings);
+    $("#disable-color-labels").prop("checked", settings.disable_color_coding);
+    if (settings.disable_color_coding) {
+      return $(".item-labels-box").addClass("hide");
+    } else {
+      return $(".item-labels-box").removeClass("hide");
+    }
+  };
 
   $("#list-name-input").live({
     keyup: function(e) {
@@ -223,16 +235,13 @@
               obj = labels[_i];
               label_objs[obj.label] = obj;
             }
-            console.log(label_objs);
             for (_j = 0, _len2 = linked_labels.length; _j < _len2; _j++) {
               linked_label = linked_labels[_j];
-              console.log(linked_label);
               labels_html += "<span class='item-color-label' style='background-color: " + label_objs[linked_label].color + "'></span>";
             }
             if (labels_html) {
               labels_html = "<div class='item-labels-box'>" + labels_html + "</div>";
             }
-            console.log(labels_html);
           }
           ele += "<li class='item-" + item_key + ("'>" + labels_html + "                  <input type='checkbox' class='cb_item' ") + checked + " />                  <div class='item-icons pull-right'><i class='icon-wrench update-item-li'></i><i class='icon-move move-item' ></i><i class='icon-remove delete-item'></i></div>                  <span contentEditable='true' class='item-text " + done_item_class + "' maxlength='15' >" + item_val[0] + "</span>                  </li>";
         }
@@ -245,11 +254,12 @@
       handle: '.move-list',
       items: '.list'
     });
-    return $(".content ul").sortable({
+    $(".content ul").sortable({
       handle: '.move-item',
       items: 'li',
       containment: 'parent'
     });
+    return initial_settings();
   };
 
   $("#create-list").live({
@@ -464,7 +474,6 @@
       $each_label = $(this).closest(".each-label");
       lid = $each_label.attr("ind");
       updated_color = $each_label.find(".updated-color-holder").val();
-      console.log(updated_color);
       updated_label = $each_label.find(".label-name").val();
       if (updated_color.trim().length === 0) {
         alert("Please select color before submitting");
@@ -506,7 +515,6 @@
         temp_html = "<span class='label-color' style='background-color: " + this.color + "'></span><span class='label-name'>" + this.label + "</span>";
         if (_ref = this.label, __indexOf.call(item_labels, _ref) >= 0) {
           temp_html = "<i class='icon-ok'></i>" + temp_html;
-          console.log(temp_html);
         }
         return label_html += ("<div label-name='" + this.label + "'>") + temp_html + "</div>";
       });
@@ -558,6 +566,15 @@
 
   $("#update-item-modal").on("hide", function(e) {
     return render();
+  });
+
+  $("#disable-color-labels").change(function() {
+    var checked, settings;
+    checked = $(this).prop("checked");
+    settings = JSON.parse(localStorage.settings);
+    settings.disable_color_coding = checked;
+    localStorage.settings = JSON.stringify(settings);
+    return $(".item-labels-box").addClass("hide");
   });
 
 }).call(this);

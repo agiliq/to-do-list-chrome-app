@@ -10,6 +10,17 @@ $(document).ready(->
       
 )
 
+initial_settings = ->
+  if not localStorage.settings
+    localStorage.settings = "{}"
+  settings = JSON.parse localStorage.settings
+  $("#disable-color-labels").prop("checked", settings.disable_color_coding)
+  if settings.disable_color_coding
+    $(".item-labels-box").addClass "hide"
+  else
+    $(".item-labels-box").removeClass "hide"
+
+
 $("#list-name-input").live
     keyup: (e)->
         if(e.keyCode == 13)
@@ -210,14 +221,11 @@ render = ->
                   label_objs = {}
                   for obj in labels
                     label_objs[obj.label] = obj
-                  console.log label_objs
 
                   for linked_label in linked_labels
-                    console.log linked_label
                     labels_html += "<span class='item-color-label' style='background-color: #{label_objs[linked_label].color}'></span>"
                   if labels_html
                     labels_html = "<div class='item-labels-box'>#{labels_html}</div>"
-                  console.log labels_html
 
                     
 
@@ -236,6 +244,7 @@ render = ->
     $(".nano").nanoScroller()
     $("#list-row").sortable({handle: '.move-list', items: '.list'})
     $(".content ul").sortable({handle: '.move-item', items: 'li', containment: 'parent'})
+    initial_settings()
 
 
 $("#create-list").live
@@ -409,7 +418,6 @@ $(".submit-updated-color").live
     $each_label = $(this).closest ".each-label"
     lid = $each_label.attr("ind")
     updated_color = $each_label.find(".updated-color-holder").val()
-    console.log updated_color
     updated_label = $each_label.find(".label-name").val()
     if updated_color.trim().length == 0
       alert "Please select color before submitting"
@@ -446,7 +454,6 @@ $(".ul-items li .icon-wrench.update-item-li").live
       temp_html = "<span class='label-color' style='background-color: #{this.color}'></span><span class='label-name'>#{this.label}</span>"
       if this.label in item_labels
         temp_html = "<i class='icon-ok'></i>" + temp_html
-        console.log temp_html
       label_html += "<div label-name='#{this.label}'>"+temp_html+"</div>"
 
     $("#item-color-labels").html label_html
@@ -489,6 +496,14 @@ $(".label-color").live
 
 $("#update-item-modal").on "hide", (e) ->
   render()
+
+
+$("#disable-color-labels").change ->
+  checked = $(this).prop("checked")
+  settings = JSON.parse localStorage.settings
+  settings.disable_color_coding = checked
+  localStorage.settings = JSON.stringify settings
+  $(".item-labels-box").addClass "hide"
 
 
 
