@@ -1,8 +1,11 @@
 $(document).ready(->
-    render()
-
     if not localStorage.labels
       localStorage.labels = "[]"
+    if (localStorage.lists == undefined)
+        localStorage.lists = "{}"
+    render()
+
+
     render_color_labels()
 
     $("#new-color-holder").spectrum
@@ -141,7 +144,7 @@ $(".cb_item").live
       oldobj[listid].items = items
       localStorage.lists = JSON.stringify oldobj
     else
-      items[itemid].splice 1,1
+      items[itemid][1] = "no"
       oldobj[listid].items = items
       localStorage.lists = JSON.stringify oldobj
     render()
@@ -360,14 +363,16 @@ $("#import_data").on 'click', ->
 upload_and_replace_with_current_data = ->
   ans = confirm "This will completely remove data on the server by replacing with current local data. Are you sure?"
   if ans
-    chrome.storage.sync.set "lists": localStorage.lists, ->
+    chrome.storage.sync.set {"lists": localStorage.lists, "labels": localStorage.labels, "settings": localStorage.settings}, ->
       alert "Current data successfully saved to server."
 
 download_and_replace_current_data = ->
   ans = confirm "This will completely remove local data by replacing with data from server. Are you sure?"
   if ans
-    chrome.storage.sync.get "lists", (res) ->
+    chrome.storage.sync.get ["lists", "labels", "settings"], (res) ->
       localStorage.lists = res.lists
+      localStorage.labels = res.labels
+      localStorage.settings = res.settings
       render()
       
 
@@ -475,21 +480,15 @@ $(".label-color").live
       if label_name in item_labels
         ind = item_labels.indexOf label_name
         item_labels.splice ind, 1
-      if item.length > 2
-        item[2] = item_labels
-      else
-        item.push item_labels
+      item[2] = item_labels
       obj.items[itemid] = item
-      lists[itemid] = obj
+      lists[listid] = obj
       localStorage.lists = JSON.stringify lists
       $(this).closest("div").find(".icon-ok").remove()
     else
       if label_name not in item_labels
         item_labels.push label_name
-      if item.length > 2
-        item[2] = item_labels
-      else
-        item.push item_labels
+      item[2] = item_labels
       obj.items[itemid] = item
       lists[listid] = obj
       localStorage.lists = JSON.stringify lists
@@ -508,9 +507,4 @@ $("#disable-color-labels").change ->
     $(".item-labels-box").addClass "hide"
   else
     $(".item-labels-box").removeClass "hide"
-
-
-
-
-
 

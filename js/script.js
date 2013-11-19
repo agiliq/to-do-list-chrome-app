@@ -3,8 +3,9 @@
     __indexOf = Array.prototype.indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
 
   $(document).ready(function() {
-    render();
     if (!localStorage.labels) localStorage.labels = "[]";
+    if (localStorage.lists === void 0) localStorage.lists = "{}";
+    render();
     render_color_labels();
     return $("#new-color-holder").spectrum({
       color: "green"
@@ -149,7 +150,7 @@
         oldobj[listid].items = items;
         localStorage.lists = JSON.stringify(oldobj);
       } else {
-        items[itemid].splice(1, 1);
+        items[itemid][1] = "no";
         oldobj[listid].items = items;
         localStorage.lists = JSON.stringify(oldobj);
       }
@@ -396,7 +397,9 @@
     ans = confirm("This will completely remove data on the server by replacing with current local data. Are you sure?");
     if (ans) {
       return chrome.storage.sync.set({
-        "lists": localStorage.lists
+        "lists": localStorage.lists,
+        "labels": localStorage.labels,
+        "settings": localStorage.settings
       }, function() {
         return alert("Current data successfully saved to server.");
       });
@@ -407,8 +410,10 @@
     var ans;
     ans = confirm("This will completely remove local data by replacing with data from server. Are you sure?");
     if (ans) {
-      return chrome.storage.sync.get("lists", function(res) {
+      return chrome.storage.sync.get(["lists", "labels", "settings"], function(res) {
         localStorage.lists = res.lists;
+        localStorage.labels = res.labels;
+        localStorage.settings = res.settings;
         return render();
       });
     }
@@ -540,24 +545,16 @@
           ind = item_labels.indexOf(label_name);
           item_labels.splice(ind, 1);
         }
-        if (item.length > 2) {
-          item[2] = item_labels;
-        } else {
-          item.push(item_labels);
-        }
+        item[2] = item_labels;
         obj.items[itemid] = item;
-        lists[itemid] = obj;
+        lists[listid] = obj;
         localStorage.lists = JSON.stringify(lists);
         return $(this).closest("div").find(".icon-ok").remove();
       } else {
         if (__indexOf.call(item_labels, label_name) < 0) {
           item_labels.push(label_name);
         }
-        if (item.length > 2) {
-          item[2] = item_labels;
-        } else {
-          item.push(item_labels);
-        }
+        item[2] = item_labels;
         obj.items[itemid] = item;
         lists[listid] = obj;
         localStorage.lists = JSON.stringify(lists);
