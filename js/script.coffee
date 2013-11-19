@@ -412,10 +412,10 @@ $(".ul-items li .icon-wrench.update-item-li").live
     item_labels = []
     obj = lists[listid]
     item = obj.items[itemid]
-    if item.length > 1
-      item_labels = obj.items[itemid][1]
-    if obj.length > 1
-      item_labels = obj[1]
+    if item.length > 2
+      item_labels = obj.items[itemid][2]
+    if obj.length > 2
+      item_labels = obj[2]
 
     $("#update-item-modal").modal()
     $("#update-item-modal").attr("itemid", itemid).attr("listid", listid)
@@ -440,15 +440,15 @@ $(".label-color").live
     item_labels = []
     obj = lists[listid]
     item = obj.items[itemid]
-    if item.length > 1
-      item_labels = obj.items[itemid][1]
+    if item.length > 2
+      item_labels = obj.items[itemid][2]
 
     if $(this).closest("div").find(".icon-ok").length
       if label_name in item_labels
         ind = item_labels.indexOf label_name
         item_labels.splice ind, 1
-      if item.length > 1
-        item[1] = item_labels
+      if item.length > 2
+        item[2] = item_labels
       else
         item.push item_labels
       obj.items[itemid] = item
@@ -458,8 +458,8 @@ $(".label-color").live
     else
       if label_name not in item_labels
         item_labels.push label_name
-      if item.length > 1
-        item[1] = item_labels
+      if item.length > 2
+        item[2] = item_labels
       else
         item.push item_labels
       obj.items[itemid] = item
