@@ -487,6 +487,9 @@ $(".label-color").live
       localStorage.lists = JSON.stringify lists
       $(this).closest("div").prepend "<i class='icon-ok'></i>"
 
+$("#update-item-modal").on "hide", (e) ->
+  render()
+
 
 
 

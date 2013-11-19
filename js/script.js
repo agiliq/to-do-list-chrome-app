@@ -556,4 +556,8 @@
     }
   });
 
+  $("#update-item-modal").on("hide", function(e) {
+    return render();
+  });
+
 }).call(this);
