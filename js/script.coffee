@@ -199,11 +199,31 @@ render = ->
             for item_key, item_val of oldobj[key].items
                 done_item_class = ""
                 checked = ""
+                labels_html = ""
                 if item_val[1]
                   if item_val[1] == "yes"
                     done_item_class = "done_item"
                     checked = "checked"
-                ele += "<li class='item-"+item_key+"'>
+                if item_val[2]
+                  linked_labels = item_val[2]
+                  labels = JSON.parse localStorage.labels
+                  label_objs = {}
+                  for obj in labels
+                    label_objs[obj.label] = obj
+                  console.log label_objs
+
+                  for linked_label in linked_labels
+                    console.log linked_label
+                    labels_html += "<span class='item-color-label' style='background-color: #{label_objs[linked_label].color}'></span>"
+                  if labels_html
+                    labels_html = "<div class='item-labels-box'>#{labels_html}</div>"
+                  console.log labels_html
+
+                    
+
+
+
+                ele += "<li class='item-"+item_key+"'>#{labels_html}
                   <input type='checkbox' class='cb_item' "+checked+" />
                   <div class='item-icons pull-right'><i class='icon-wrench update-item-li'></i><i class='icon-move move-item' ></i><i class='icon-remove delete-item'></i></div>
                   <span contentEditable='true' class='item-text "+done_item_class+"' maxlength='15' >"+item_val[0]+"</span>

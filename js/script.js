@@ -195,7 +195,7 @@
   });
 
   render = function() {
-    var checked, done_item_class, ele, item_key, item_val, key, oldobj, _ref;
+    var checked, done_item_class, ele, item_key, item_val, key, label_objs, labels, labels_html, linked_label, linked_labels, obj, oldobj, _i, _j, _len, _len2, _ref;
     oldobj = JSON.parse(localStorage.lists);
     $("#list-row").html("");
     for (key in oldobj) {
@@ -208,13 +208,33 @@
           item_val = _ref[item_key];
           done_item_class = "";
           checked = "";
+          labels_html = "";
           if (item_val[1]) {
             if (item_val[1] === "yes") {
               done_item_class = "done_item";
               checked = "checked";
             }
           }
-          ele += "<li class='item-" + item_key + "'>                  <input type='checkbox' class='cb_item' " + checked + " />                  <div class='item-icons pull-right'><i class='icon-wrench update-item-li'></i><i class='icon-move move-item' ></i><i class='icon-remove delete-item'></i></div>                  <span contentEditable='true' class='item-text " + done_item_class + "' maxlength='15' >" + item_val[0] + "</span>                  </li>";
+          if (item_val[2]) {
+            linked_labels = item_val[2];
+            labels = JSON.parse(localStorage.labels);
+            label_objs = {};
+            for (_i = 0, _len = labels.length; _i < _len; _i++) {
+              obj = labels[_i];
+              label_objs[obj.label] = obj;
+            }
+            console.log(label_objs);
+            for (_j = 0, _len2 = linked_labels.length; _j < _len2; _j++) {
+              linked_label = linked_labels[_j];
+              console.log(linked_label);
+              labels_html += "<span class='item-color-label' style='background-color: " + label_objs[linked_label].color + "'></span>";
+            }
+            if (labels_html) {
+              labels_html = "<div class='item-labels-box'>" + labels_html + "</div>";
+            }
+            console.log(labels_html);
+          }
+          ele += "<li class='item-" + item_key + ("'>" + labels_html + "                  <input type='checkbox' class='cb_item' ") + checked + " />                  <div class='item-icons pull-right'><i class='icon-wrench update-item-li'></i><i class='icon-move move-item' ></i><i class='icon-remove delete-item'></i></div>                  <span contentEditable='true' class='item-text " + done_item_class + "' maxlength='15' >" + item_val[0] + "</span>                  </li>";
         }
         ele += "</ul></div></div><div class='item-input'><input type='text' class='span3' id='item-input-" + key + "' placeholder='Enter todo and hit enter' /></div></div>";
         $("#list-row").append(ele);

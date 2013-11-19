@@ -80,3 +80,10 @@ p button { width: 250px; }
 .color-label, .label-color { display: inline-block; width: 150px; height: 25px; border-radius: 5px; }
 #add-color-label { margin-bottom: 10px; }
 .each-label .updated-color-holder { display: none; }
+.item-color-label {
+    width: 30px;
+    height: 3px;
+    display: inline-block;
+    margin-right: 5px;
+}
+.item-labels-box { margin-left: 20px; margin-bottom: -7px; }
