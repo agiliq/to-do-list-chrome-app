@@ -212,7 +212,7 @@
     $("#list-row").html("");
     for (key in oldobj) {
       if (oldobj.hasOwnProperty(key)) {
-        ele = "<div id='list-" + key + "' class='well list span3' >                <div class='header_to_well'>                  <div class='list-header'>                    <span class='header-icons pull-right'>                      <i class='icon-wrench icon-white'></i>                      <i class='icon-move icon-white move-list '></i><i class='icon-remove icon-white delete-list'></i>                    </span>                    <span contentEditable='true' class='list-header-text'> " + oldobj[key].name + "</span>                  </div>                </div>                <div class='nano'><div class='content'><ul class='unstyled ul-items'>";
+        ele = "<div id='list-" + key + "' class='well list span3' >                <div class='header_to_well'>                  <div class='list-header'>                    <span class='header-icons pull-right'>                      <i class='icon-move icon-white move-list '></i><i class='icon-remove icon-white delete-list'></i>                    </span>                    <span contentEditable='true' class='list-header-text'> " + oldobj[key].name + "</span>                  </div>                </div>                <div class='nano'><div class='content'><ul class='unstyled ul-items'>";
         done_item_class = "";
         checked = "";
         _ref = oldobj[key].items;

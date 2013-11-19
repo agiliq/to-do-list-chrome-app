@@ -197,7 +197,6 @@ render = ->
                 <div class='header_to_well'>
                   <div class='list-header'>
                     <span class='header-icons pull-right'>
-                      <i class='icon-wrench icon-white'></i>
                       <i class='icon-move icon-white move-list '></i><i class='icon-remove icon-white delete-list'></i>
                     </span>
                     <span contentEditable='true' class='list-header-text'> "+oldobj[key].name+"</span>
