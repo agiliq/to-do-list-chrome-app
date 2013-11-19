@@ -55,7 +55,7 @@ li input.cb_item { /*margin-left:-12px;*/ margin-top: -1px; /*margin-right: 5px;
 .item-icons:hover {opacity: 1; zoom: 120%; }
 .item-icons i { margin-left: 5px; }
 
-.delete-item:hover, .delete-list:hover, .move-list:hover, .move-item:hover { cursor: pointer }
+.delete-item:hover, .delete-list:hover, .move-list:hover, .move-item:hover, .update-item-li { cursor: pointer }
 
 /*
 .delete-list{opacity: 0.3; }
@@ -77,6 +77,6 @@ li input.cb_item { /*margin-left:-12px;*/ margin-top: -1px; /*margin-right: 5px;
 .hide-settings:hover { cursor: pointer; }
 .settings-content { padding: 20px; }
 p button { width: 250px; }
-.color-label { display: inline-block; width: 150px; height: 25px; border-radius: 5px; }
+.color-label, .label-color { display: inline-block; width: 150px; height: 25px; border-radius: 5px; }
 #add-color-label { margin-bottom: 10px; }
 .each-label .updated-color-holder { display: none; }

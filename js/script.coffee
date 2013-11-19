@@ -186,6 +186,7 @@ render = ->
                 <div class='header_to_well'>
                   <div class='list-header'>
                     <span class='header-icons pull-right'>
+                      <i class='icon-wrench icon-white'></i>
                       <i class='icon-move icon-white move-list '></i><i class='icon-remove icon-white delete-list'></i>
                     </span>
                     <span contentEditable='true' class='list-header-text'> "+oldobj[key].name+"</span>
@@ -204,7 +205,7 @@ render = ->
                     checked = "checked"
                 ele += "<li class='item-"+item_key+"'>
                   <input type='checkbox' class='cb_item' "+checked+" />
-                  <div class='item-icons pull-right'><i class='icon-move move-item' ></i><i class='icon-remove delete-item'></i></div>
+                  <div class='item-icons pull-right'><i class='icon-wrench update-item-li'></i><i class='icon-move move-item' ></i><i class='icon-remove delete-item'></i></div>
                   <span contentEditable='true' class='item-text "+done_item_class+"' maxlength='15' >"+item_val[0]+"</span>
                   </li>"
 
@@ -402,5 +403,73 @@ $(".submit-updated-color").live
     localStorage.labels = JSON.stringify labels
     render_color_labels()
     alert "Updated"
+
+$(".ul-items li .icon-wrench.update-item-li").live
+  click: (e) ->
+    itemid = Number $(@).closest("li").attr('class').split("-")[1]
+    listid = Number $(@).closest(".list")[0].id.split("-")[1]
+    lists = JSON.parse localStorage.lists
+    item_labels = []
+    obj = lists[listid]
+    item = obj.items[itemid]
+    if item.length > 1
+      item_labels = obj.items[itemid][1]
+    if obj.length > 1
+      item_labels = obj[1]
+
+    $("#update-item-modal").modal()
+    $("#update-item-modal").attr("itemid", itemid).attr("listid", listid)
+
+    labels = JSON.parse localStorage.labels
+    label_html = ""
+    $(labels).each ->
+      temp_html = "<span class='label-color' style='background-color: #{this.color}'></span><span class='label-name'>#{this.label}</span>"
+      if this.label in item_labels
+        temp_html = "<i class='icon-ok'></i>" + temp_html
+        console.log temp_html
+      label_html += "<div label-name='#{this.label}'>"+temp_html+"</div>"
+
+    $("#item-color-labels").html label_html
+
+$(".label-color").live
+  click: ->
+    itemid = $("#update-item-modal").attr("itemid")
+    listid = $("#update-item-modal").attr("listid")
+    label_name = $(this).closest("div").attr("label-name")
+    lists = JSON.parse localStorage.lists
+    item_labels = []
+    obj = lists[listid]
+    item = obj.items[itemid]
+    if item.length > 1
+      item_labels = obj.items[itemid][1]
+
+    if $(this).closest("div").find(".icon-ok").length
+      if label_name in item_labels
+        ind = item_labels.indexOf label_name
+        item_labels.splice ind, 1
+      if item.length > 1
+        item[1] = item_labels
+      else
+        item.push item_labels
+      obj.items[itemid] = item
+      lists[itemid] = obj
+      localStorage.lists = JSON.stringify lists
+      $(this).closest("div").find(".icon-ok").remove()
+    else
+      if label_name not in item_labels
+        item_labels.push label_name
+      if item.length > 1
+        item[1] = item_labels
+      else
+        item.push item_labels
+      obj.items[itemid] = item
+      lists[listid] = obj
+      localStorage.lists = JSON.stringify lists
+      $(this).closest("div").prepend "<i class='icon-ok'></i>"
+
+
+
+
+
 
 
