@@ -453,7 +453,9 @@ $(".ul-items li .icon-wrench.update-item-li").live
     $(labels).each ->
       temp_html = "<span class='label-color' style='background-color: #{this.color}'></span><span class='label-name'>#{this.label}</span>"
       if this.label in item_labels
-        temp_html = "<i class='icon-ok'></i>" + temp_html
+        temp_html = "<span class='small-gap'><i class='icon-ok'></i></span>" + temp_html
+      else
+        temp_html = "<span class='small-gap'></span>" + temp_html
       label_html += "<div label-name='#{this.label}'>"+temp_html+"</div>"
 
     $("#item-color-labels").html label_html
@@ -492,7 +494,7 @@ $(".label-color").live
       obj.items[itemid] = item
       lists[listid] = obj
       localStorage.lists = JSON.stringify lists
-      $(this).closest("div").prepend "<i class='icon-ok'></i>"
+      $(this).closest("div").find(".small-gap").html "<i class='icon-ok'></i>"
 
 $("#update-item-modal").on "hide", (e) ->
   render()
@@ -503,8 +505,10 @@ $("#disable-color-labels").change ->
   settings = JSON.parse localStorage.settings
   settings.disable_color_coding = checked
   localStorage.settings = JSON.stringify settings
-  $(".item-labels-box").addClass "hide"
-
+  if checked
+    $(".item-labels-box").addClass "hide"
+  else
+    $(".item-labels-box").removeClass "hide"
 
 
 

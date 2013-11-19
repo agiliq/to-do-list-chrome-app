@@ -514,7 +514,9 @@
         var temp_html, _ref;
         temp_html = "<span class='label-color' style='background-color: " + this.color + "'></span><span class='label-name'>" + this.label + "</span>";
         if (_ref = this.label, __indexOf.call(item_labels, _ref) >= 0) {
-          temp_html = "<i class='icon-ok'></i>" + temp_html;
+          temp_html = "<span class='small-gap'><i class='icon-ok'></i></span>" + temp_html;
+        } else {
+          temp_html = "<span class='small-gap'></span>" + temp_html;
         }
         return label_html += ("<div label-name='" + this.label + "'>") + temp_html + "</div>";
       });
@@ -559,7 +561,7 @@
         obj.items[itemid] = item;
         lists[listid] = obj;
         localStorage.lists = JSON.stringify(lists);
-        return $(this).closest("div").prepend("<i class='icon-ok'></i>");
+        return $(this).closest("div").find(".small-gap").html("<i class='icon-ok'></i>");
       }
     }
   });
@@ -574,7 +576,11 @@
     settings = JSON.parse(localStorage.settings);
     settings.disable_color_coding = checked;
     localStorage.settings = JSON.stringify(settings);
-    return $(".item-labels-box").addClass("hide");
+    if (checked) {
+      return $(".item-labels-box").addClass("hide");
+    } else {
+      return $(".item-labels-box").removeClass("hide");
+    }
   });
 
 }).call(this);

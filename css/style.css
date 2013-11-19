@@ -77,7 +77,7 @@ li input.cb_item { /*margin-left:-12px;*/ margin-top: -1px; /*margin-right: 5px;
 .hide-settings:hover { cursor: pointer; }
 .settings-content { padding: 20px; }
 p button { width: 250px; }
-.color-label, .label-color { display: inline-block; width: 150px; height: 25px; border-radius: 5px; }
+.color-label, .label-color { display: inline-block; width: 150px; height: 29px; border-radius: 5px; }
 #add-color-label { margin-bottom: 10px; }
 .each-label .updated-color-holder { display: none; }
 .item-color-label {
@@ -87,3 +87,11 @@ p button { width: 250px; }
     margin-right: 5px;
 }
 .item-labels-box { margin-left: 20px; margin-bottom: -7px; }
+.label-name.input-small {
+    margin-top: -12px;
+    margin-left: 5px;
+}
+span.label-name { position: relative; top: -8px; margin-left: 10px; font-weight: bold; }
+.submit-updated-color { margin-top: -23px; margin-left: 5px; }
+#simple-settings { color: whitesmoke; margin-top: 10px; }
+.small-gap { display: inline-block; min-width: 20px; position: relative; top: -8px; }
