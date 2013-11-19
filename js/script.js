@@ -1,8 +1,13 @@
 (function() {
-  var create_new_list, download_and_replace_current_data, move_item_start, move_list_start, render, update_item, update_listname, upload_and_replace_with_current_data, validate_list_name_input;
+  var create_new_list, download_and_replace_current_data, move_item_start, move_list_start, render, render_color_labels, update_item, update_listname, upload_and_replace_with_current_data, validate_list_name_input;
 
   $(document).ready(function() {
-    return render();
+    render();
+    if (!localStorage.labels) localStorage.labels = "[]";
+    render_color_labels();
+    return $("#new-color-holder").spectrum({
+      color: "green"
+    });
   });
 
   $("#list-name-input").live({
@@ -384,6 +389,80 @@
 
   $("#download_sync").click(function() {
     return download_and_replace_current_data();
+  });
+
+  $("#add-color-label").click(function() {
+    return $("#new-coding-label-container").toggle();
+  });
+
+  $("#submit-new-label").click(function() {
+    var found, new_color, new_label, old_labels;
+    new_label = $("#new-color-label-holder").val();
+    new_color = $("#new-color-holder").val();
+    if (new_label.trim().length === 0) {
+      $("#new-color-label-holder").focus();
+      return;
+    }
+    if (new_color.trim().length === 0) return;
+    old_labels = JSON.parse(localStorage.labels);
+    found = old_labels.filter(function(e) {
+      return e.label === new_label;
+    });
+    if (found.length) {
+      alert("Label '" + new_label + "' already exists");
+      return;
+    }
+    old_labels.push({
+      'color': new_color,
+      'label': new_label
+    });
+    localStorage.labels = JSON.stringify(old_labels);
+    return render_color_labels();
+  });
+
+  render_color_labels = function() {
+    var html, ind, label, labels, _len;
+    labels = JSON.parse(localStorage.labels);
+    html = "";
+    for (ind = 0, _len = labels.length; ind < _len; ind++) {
+      label = labels[ind];
+      html += "<div class='each-label' ind='" + ind + "'><span class='color-label' style='background-color: " + label.color + "'></span>" + "<input type='text' class='updated-color-holder' value='" + label.color + "' /><input type='text' class='label-name input-small' value='" + label.label + "'>" + "<button class='submit-updated-color btn btn-primary'>Update</button></div>";
+    }
+    return $(".color-labels").html(html);
+  };
+
+  $(".color-label").live({
+    click: function() {
+      return $(this).closest(".each-label").find(".updated-color-holder").spectrum();
+    }
+  });
+
+  $(".submit-updated-color").live({
+    click: function() {
+      var $each_label, labels, lid, updated_color, updated_label;
+      $each_label = $(this).closest(".each-label");
+      lid = $each_label.attr("ind");
+      updated_color = $each_label.find(".updated-color-holder").val();
+      console.log(updated_color);
+      updated_label = $each_label.find(".label-name").val();
+      if (updated_color.trim().length === 0) {
+        alert("Please select color before submitting");
+        return;
+      }
+      if (updated_label.trim().length === 0) {
+        alert("Please enter label name before submitting");
+        $each_label.find(".label-name").focus();
+        return;
+      }
+      labels = JSON.parse(localStorage.labels);
+      labels[lid] = {
+        'color': updated_color,
+        'label': updated_label
+      };
+      localStorage.labels = JSON.stringify(labels);
+      render_color_labels();
+      return alert("Updated");
+    }
   });
 
 }).call(this);

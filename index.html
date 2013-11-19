@@ -3,10 +3,11 @@
     <head>
         <title>Todo List </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="css/nanoscroller.css" rel="stylesheet" />
-        <link href="css/bootstrap.css" rel="stylesheet" />
-        <link href="css/bootstrap-responsive.css" rel="stylesheet" />
-        <link href="css/style.css" rel="stylesheet" />
+        <link href="css/nanoscroller.css" rel="stylesheet" type="text/css" />
+        <link href="css/bootstrap.css" rel="stylesheet" type="text/css" />
+        <link href="css/bootstrap-responsive.css" rel="stylesheet"  type="text/css"/>
+        <link href="css/spectrum.css" rel="stylesheet"  type="text/css"/>
+        <link href="css/style.css" rel="stylesheet"  type="text/css"/>
 
     </head>
     <body>
@@ -25,6 +26,7 @@
                 <a href='#import_modal' role="button" class='btn btn-primary'  data-toggle='modal' id='show_import_modal'> Import </a>
                 -->
                 <a href="#sync_modal" class="btn btn-primary" data-toggle="modal" id="show_sync_modal">Sync</a>
+                <a href="#color-coding-modal" class="btn btn-primary" data-toggle="modal" id="show-color-coding-modal">Color Coding</a>
             </div>
             
         </div>
@@ -38,6 +40,28 @@
 
             </div>
         </div>
+<div id="color-coding-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="color-coding-label" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+    <h3>Color Coding - Manage Labels</h3>
+  </div>
+  <div class="modal-body">
+        <button id="add-color-label" class="btn btn-primary">Add Label</button> 
+        <div id="new-coding-label-container" class="hide">
+            <input type="text" id="new-color-label-holder" class="input-small" />
+            <input type="text" id="new-color-holder" value="green" />
+            <button id="submit-new-label" class="btn btn-primary">Add</button>
+        </div>
+        <div class="color-labels">
+
+        </div>
+    <br>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+  </div>
+</div>
+
 
 <div id="sync_modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="sync_modal_label" aria-hidden="true">
   <div class="modal-header">
@@ -96,6 +120,7 @@
         <script type="text/javascript" src='lib/jquery-ui.js' ></script>
         <script type="text/javascript" src="lib/jquery.nanoscroller.js"></script>
         <script type="text/javascript" src="lib/bootstrap-modal.js"></script>
+        <script type="text/javascript" src="lib/spectrum.js"></script>
         <script type="text/javascript" src='js/script.js' ></script>
 
     </body>
