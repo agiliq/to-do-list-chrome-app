@@ -3,8 +3,37 @@
     __indexOf = Array.prototype.indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
 
   $(document).ready(function() {
+    var initial_lists;
     if (!localStorage.labels) localStorage.labels = "[]";
-    if (localStorage.lists === void 0) localStorage.lists = "{}";
+    if (localStorage.lists === void 0) {
+      initial_lists = {
+        "0": {
+          "name": "Today's Todo",
+          "items": {
+            "0": ["Brush my teeth", "yes"],
+            "1": ["Have breakfast", "yes"],
+            "2": ["Learn about the todo app"]
+          }
+        },
+        "1": {
+          "name": "Learn about this app",
+          "items": {
+            "0": ["You can add lists and todos", "yes"],
+            "1": ["You can reorder things. Go ahead, click on the move icon."],
+            "2": ["You can delete lists and items.", "yes"],
+            "3": ["Sigin to chrome and sync your todos"]
+          }
+        },
+        "2": {
+          "name": "Life Goals",
+          "items": {
+            "0": ["Read 100 books", "yes"],
+            "1": ["Run a marathon"]
+          }
+        }
+      };
+      localStorage.lists = JSON.stringify(initial_lists);
+    }
     render();
     render_color_labels();
     return $("#new-color-holder").spectrum({

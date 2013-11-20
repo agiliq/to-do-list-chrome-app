@@ -2,7 +2,8 @@ $(document).ready(->
     if not localStorage.labels
       localStorage.labels = "[]"
     if (localStorage.lists == undefined)
-        localStorage.lists = "{}"
+      initial_lists = {"0":{"name":"Today's Todo","items":{"0":["Brush my teeth","yes"],"1":["Have breakfast","yes"],"2":["Learn about the todo app"]}},"1":{"name":"Learn about this app","items":{"0":["You can add lists and todos","yes"],"1":["You can reorder things. Go ahead, click on the move icon."],"2":["You can delete lists and items.","yes"],"3":["Sigin to chrome and sync your todos"]}},"2":{"name":"Life Goals","items":{"0":["Read 100 books","yes"],"1":["Run a marathon"]}}}
+      localStorage.lists = JSON.stringify initial_lists
     render()
 
 
