@@ -1,13 +1,13 @@
 $(document).ready(->
-    if not localStorage.labels
-      localStorage.labels = "[]"
     if (localStorage.lists == undefined)
       initial_lists = {"0":{"name":"Today's Todo","items":{"0":["Brush my teeth","yes"],"1":["Have breakfast","yes"],"2":["Learn about the todo app"]}},"1":{"name":"Learn about this app","items":{"0":["You can add lists and todos","yes"],"1":["You can reorder things. Go ahead, click on the move icon."],"2":["You can delete lists and items.","yes"],"3":["Sigin to chrome and sync your todos"]}},"2":{"name":"Life Goals","items":{"0":["Read 100 books","yes"],"1":["Run a marathon"]}}}
       localStorage.lists = JSON.stringify initial_lists
+    if not localStorage.labels
+      initial_labels = [{"color": "#2AAC75", "label": "Green" }, {"label": "Red", "color": " #CE4545"}, {"label": "Purple", "color": "#9D31D3"},
+                        {"label": "Yellow", "color": "#CCCC4A"}, {"label": "Blue", "color": "#4874CE"}, {"label": "Orange", "color": "#DF9348"}]
+      localStorage.labels = JSON.stringify initial_labels
     render()
 
-
-    render_color_labels()
 
     $("#new-color-holder").spectrum
       color: "green"
@@ -234,10 +234,11 @@ render = ->
 
 
 
-                ele += "<li class='item-"+item_key+"'>#{labels_html}
+                ele += "<li class='item-"+item_key+"'><div class='item-div'>#{labels_html}
                   <input type='checkbox' class='cb_item' "+checked+" />
                   <div class='item-icons pull-right'><i class='icon-wrench update-item-li'></i><i class='icon-move move-item' ></i><i class='icon-remove delete-item'></i></div>
-                  <span contentEditable='true' class='item-text "+done_item_class+"' maxlength='15' >"+item_val[0]+"</span>
+                  <span contentEditable='true' class='item-text "+done_item_class+"' maxlength='15' >"+item_val[0]+"</span></div>
+                  <div class='item-color-labels'></div>
                   </li>"
 
             ele += "</ul></div></div><div class='item-input'><input type='text' class='span3' id='item-input-"+key+"' placeholder='Enter todo and hit enter' /></div></div>"
@@ -402,16 +403,6 @@ $("#submit-new-label").click ->
     return
   old_labels.push {'color': new_color, 'label': new_label}
   localStorage.labels = JSON.stringify old_labels
-  render_color_labels()
-
-render_color_labels = ->
-  labels = JSON.parse localStorage.labels
-  html = ""
-  for label, ind in labels
-    html += "<div class='each-label' ind='"+ind+"'><span class='color-label' style='background-color: "+label.color+"'></span>"+
-      "<input type='text' class='updated-color-holder' value='"+label.color+"' /><input type='text' class='label-name input-small' value='"+label.label+"'>"+
-      "<button class='submit-updated-color btn btn-primary'>Update</button></div>"
-  $(".color-labels").html html
 
 
 $(".color-label").live
@@ -434,12 +425,17 @@ $(".submit-updated-color").live
     labels = JSON.parse localStorage.labels
     labels[lid] = {'color': updated_color, 'label': updated_label}
     localStorage.labels = JSON.stringify labels
-    render_color_labels()
     alert "Updated"
 
 $(".ul-items li .icon-wrench.update-item-li").live
   click: (e) ->
-    itemid = Number $(@).closest("li").attr('class').split("-")[1]
+    $closest_li = $(@).closest("li")
+    $labels_div = $closest_li.find ".item-color-labels"
+    if $labels_div.attr("status") == "visible"
+      $labels_div.html("").attr("status", "hidden")
+      return
+    
+    itemid = Number $closest_li.attr('class').split("-")[1]
     listid = Number $(@).closest(".list")[0].id.split("-")[1]
     lists = JSON.parse localStorage.lists
     item_labels = []
@@ -450,26 +446,22 @@ $(".ul-items li .icon-wrench.update-item-li").live
     if obj.length > 2
       item_labels = obj[2]
 
-    $("#update-item-modal").modal()
-    $("#update-item-modal").attr("itemid", itemid).attr("listid", listid)
-
     labels = JSON.parse localStorage.labels
     label_html = ""
     $(labels).each ->
-      temp_html = "<span class='label-color' style='background-color: #{this.color}'></span><span class='label-name'>#{this.label}</span>"
+      temp_html = "<span class='label-color' style='background-color: #{this.color}'>"
       if this.label in item_labels
-        temp_html = "<span class='small-gap'><i class='icon-ok'></i></span>" + temp_html
-      else
-        temp_html = "<span class='small-gap'></span>" + temp_html
-      label_html += "<div label-name='#{this.label}'>"+temp_html+"</div>"
+        temp_html += "<i class='icon-ok icon-white'></i>"
+      temp_html += "</span>"
+      label_html += "<span class='each-label' label-name='#{this.label}'>"+temp_html+"</span>"
 
-    $("#item-color-labels").html label_html
+    $labels_div.html(label_html).attr("status", "visible")
 
 $(".label-color").live
   click: ->
-    itemid = $("#update-item-modal").attr("itemid")
-    listid = $("#update-item-modal").attr("listid")
-    label_name = $(this).closest("div").attr("label-name")
+    itemid = Number $(this).closest("li").attr('class').split("-")[1]
+    listid = Number $(@).closest(".list")[0].id.split("-")[1]
+    label_name = $(this).closest(".each-label").attr("label-name")
     lists = JSON.parse localStorage.lists
     item_labels = []
     obj = lists[listid]
@@ -477,7 +469,7 @@ $(".label-color").live
     if item.length > 2
       item_labels = obj.items[itemid][2]
 
-    if $(this).closest("div").find(".icon-ok").length
+    if $(this).find(".icon-ok").length
       if label_name in item_labels
         ind = item_labels.indexOf label_name
         item_labels.splice ind, 1
@@ -485,7 +477,7 @@ $(".label-color").live
       obj.items[itemid] = item
       lists[listid] = obj
       localStorage.lists = JSON.stringify lists
-      $(this).closest("div").find(".icon-ok").remove()
+      $(this).find(".icon-ok").remove()
     else
       if label_name not in item_labels
         item_labels.push label_name
@@ -493,7 +485,8 @@ $(".label-color").live
       obj.items[itemid] = item
       lists[listid] = obj
       localStorage.lists = JSON.stringify lists
-      $(this).closest("div").find(".small-gap").html "<i class='icon-ok'></i>"
+      $(this).find(".label-color").html "<i class='icon-ok icon-white'></i>"
+    render()
 
 $("#update-item-modal").on "hide", (e) ->
   render()

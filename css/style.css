@@ -77,7 +77,8 @@ li input.cb_item { /*margin-left:-12px;*/ margin-top: -1px; /*margin-right: 5px;
 .hide-settings:hover { cursor: pointer; }
 .settings-content { padding: 20px; }
 p button { width: 250px; }
-.color-label, .label-color { display: inline-block; width: 150px; height: 29px; border-radius: 5px; }
+.color-label, .label-color { display: inline-block; width: 25px; height: 25px; border-radius: 5px; margin-left: 5px; position: relative; }
+.label-color .icon-ok { position: absolute; top: 12%; left: 17%; }
 #add-color-label { margin-bottom: 10px; }
 .each-label .updated-color-holder { display: none; }
 .item-color-label {

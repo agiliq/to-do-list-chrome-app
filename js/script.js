@@ -1,10 +1,9 @@
 (function() {
-  var create_new_list, download_and_replace_current_data, initial_settings, move_item_start, move_list_start, render, render_color_labels, update_item, update_listname, upload_and_replace_with_current_data, validate_list_name_input,
+  var create_new_list, download_and_replace_current_data, initial_settings, move_item_start, move_list_start, render, update_item, update_listname, upload_and_replace_with_current_data, validate_list_name_input,
     __indexOf = Array.prototype.indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
 
   $(document).ready(function() {
-    var initial_lists;
-    if (!localStorage.labels) localStorage.labels = "[]";
+    var initial_labels, initial_lists;
     if (localStorage.lists === void 0) {
       initial_lists = {
         "0": {
@@ -34,8 +33,31 @@
       };
       localStorage.lists = JSON.stringify(initial_lists);
     }
+    if (!localStorage.labels) {
+      initial_labels = [
+        {
+          "color": "#2AAC75",
+          "label": "Green"
+        }, {
+          "label": "Red",
+          "color": " #CE4545"
+        }, {
+          "label": "Purple",
+          "color": "#9D31D3"
+        }, {
+          "label": "Yellow",
+          "color": "#CCCC4A"
+        }, {
+          "label": "Blue",
+          "color": "#4874CE"
+        }, {
+          "label": "Orange",
+          "color": "#DF9348"
+        }
+      ];
+      localStorage.labels = JSON.stringify(initial_labels);
+    }
     render();
-    render_color_labels();
     return $("#new-color-holder").spectrum({
       color: "green"
     });
@@ -273,7 +295,7 @@
               labels_html = "<div class='item-labels-box'>" + labels_html + "</div>";
             }
           }
-          ele += "<li class='item-" + item_key + ("'>" + labels_html + "                  <input type='checkbox' class='cb_item' ") + checked + " />                  <div class='item-icons pull-right'><i class='icon-wrench update-item-li'></i><i class='icon-move move-item' ></i><i class='icon-remove delete-item'></i></div>                  <span contentEditable='true' class='item-text " + done_item_class + "' maxlength='15' >" + item_val[0] + "</span>                  </li>";
+          ele += "<li class='item-" + item_key + ("'><div class='item-div'>" + labels_html + "                  <input type='checkbox' class='cb_item' ") + checked + " />                  <div class='item-icons pull-right'><i class='icon-wrench update-item-li'></i><i class='icon-move move-item' ></i><i class='icon-remove delete-item'></i></div>                  <span contentEditable='true' class='item-text " + done_item_class + "' maxlength='15' >" + item_val[0] + "</span></div>                  <div class='item-color-labels'></div>                  </li>";
         }
         ele += "</ul></div></div><div class='item-input'><input type='text' class='span3' id='item-input-" + key + "' placeholder='Enter todo and hit enter' /></div></div>";
         $("#list-row").append(ele);
@@ -481,20 +503,8 @@
       'color': new_color,
       'label': new_label
     });
-    localStorage.labels = JSON.stringify(old_labels);
-    return render_color_labels();
+    return localStorage.labels = JSON.stringify(old_labels);
   });
-
-  render_color_labels = function() {
-    var html, ind, label, labels, _len;
-    labels = JSON.parse(localStorage.labels);
-    html = "";
-    for (ind = 0, _len = labels.length; ind < _len; ind++) {
-      label = labels[ind];
-      html += "<div class='each-label' ind='" + ind + "'><span class='color-label' style='background-color: " + label.color + "'></span>" + "<input type='text' class='updated-color-holder' value='" + label.color + "' /><input type='text' class='label-name input-small' value='" + label.label + "'>" + "<button class='submit-updated-color btn btn-primary'>Update</button></div>";
-    }
-    return $(".color-labels").html(html);
-  };
 
   $(".color-label").live({
     click: function() {
@@ -524,15 +534,20 @@
         'label': updated_label
       };
       localStorage.labels = JSON.stringify(labels);
-      render_color_labels();
       return alert("Updated");
     }
   });
 
   $(".ul-items li .icon-wrench.update-item-li").live({
     click: function(e) {
-      var item, item_labels, itemid, label_html, labels, listid, lists, obj;
-      itemid = Number($(this).closest("li").attr('class').split("-")[1]);
+      var $closest_li, $labels_div, item, item_labels, itemid, label_html, labels, listid, lists, obj;
+      $closest_li = $(this).closest("li");
+      $labels_div = $closest_li.find(".item-color-labels");
+      if ($labels_div.attr("status") === "visible") {
+        $labels_div.html("").attr("status", "hidden");
+        return;
+      }
+      itemid = Number($closest_li.attr('class').split("-")[1]);
       listid = Number($(this).closest(".list")[0].id.split("-")[1]);
       lists = JSON.parse(localStorage.lists);
       item_labels = [];
@@ -540,36 +555,33 @@
       item = obj.items[itemid];
       if (item.length > 2) item_labels = obj.items[itemid][2];
       if (obj.length > 2) item_labels = obj[2];
-      $("#update-item-modal").modal();
-      $("#update-item-modal").attr("itemid", itemid).attr("listid", listid);
       labels = JSON.parse(localStorage.labels);
       label_html = "";
       $(labels).each(function() {
         var temp_html, _ref;
-        temp_html = "<span class='label-color' style='background-color: " + this.color + "'></span><span class='label-name'>" + this.label + "</span>";
+        temp_html = "<span class='label-color' style='background-color: " + this.color + "'>";
         if (_ref = this.label, __indexOf.call(item_labels, _ref) >= 0) {
-          temp_html = "<span class='small-gap'><i class='icon-ok'></i></span>" + temp_html;
-        } else {
-          temp_html = "<span class='small-gap'></span>" + temp_html;
+          temp_html += "<i class='icon-ok icon-white'></i>";
         }
-        return label_html += ("<div label-name='" + this.label + "'>") + temp_html + "</div>";
+        temp_html += "</span>";
+        return label_html += ("<span class='each-label' label-name='" + this.label + "'>") + temp_html + "</span>";
       });
-      return $("#item-color-labels").html(label_html);
+      return $labels_div.html(label_html).attr("status", "visible");
     }
   });
 
   $(".label-color").live({
     click: function() {
       var ind, item, item_labels, itemid, label_name, listid, lists, obj;
-      itemid = $("#update-item-modal").attr("itemid");
-      listid = $("#update-item-modal").attr("listid");
-      label_name = $(this).closest("div").attr("label-name");
+      itemid = Number($(this).closest("li").attr('class').split("-")[1]);
+      listid = Number($(this).closest(".list")[0].id.split("-")[1]);
+      label_name = $(this).closest(".each-label").attr("label-name");
       lists = JSON.parse(localStorage.lists);
       item_labels = [];
       obj = lists[listid];
       item = obj.items[itemid];
       if (item.length > 2) item_labels = obj.items[itemid][2];
-      if ($(this).closest("div").find(".icon-ok").length) {
+      if ($(this).find(".icon-ok").length) {
         if (__indexOf.call(item_labels, label_name) >= 0) {
           ind = item_labels.indexOf(label_name);
           item_labels.splice(ind, 1);
@@ -578,7 +590,7 @@
         obj.items[itemid] = item;
         lists[listid] = obj;
         localStorage.lists = JSON.stringify(lists);
-        return $(this).closest("div").find(".icon-ok").remove();
+        $(this).find(".icon-ok").remove();
       } else {
         if (__indexOf.call(item_labels, label_name) < 0) {
           item_labels.push(label_name);
@@ -587,8 +599,9 @@
         obj.items[itemid] = item;
         lists[listid] = obj;
         localStorage.lists = JSON.stringify(lists);
-        return $(this).closest("div").find(".small-gap").html("<i class='icon-ok'></i>");
+        $(this).find(".label-color").html("<i class='icon-ok icon-white'></i>");
       }
+      return render();
     }
   });
 
