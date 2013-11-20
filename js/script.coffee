@@ -120,6 +120,7 @@ $('.item-text').live
     e.preventDefault()
     update_item(e, @)
   blur: (e) ->
+    $(this).removeAttr "contentEditable"
     update_item(e, @)
 
 
@@ -203,7 +204,7 @@ render = ->
                     <span class='header-icons pull-right'>
                       <i class='icon-move icon-white move-list '></i><i class='icon-remove icon-white delete-list'></i>
                     </span>
-                    <span contentEditable='true' class='list-header-text'> "+oldobj[key].name+"</span>
+                    <span class='list-header-text'> "+oldobj[key].name+"</span>
                   </div>
                 </div>
                 <div class='nano'><div class='content'><ul class='unstyled ul-items'>"
@@ -236,8 +237,8 @@ render = ->
 
                 ele += "<li class='item-"+item_key+"'><div class='item-div'>#{labels_html}
                   <input type='checkbox' class='cb_item' "+checked+" />
-                  <div class='item-icons pull-right'><i class='icon-wrench update-item-li'></i><i class='icon-move move-item' ></i><i class='icon-remove delete-item'></i></div>
-                  <span contentEditable='true' class='item-text "+done_item_class+"' maxlength='15' >"+item_val[0]+"</span></div>
+                  <div class='item-icons pull-right'><i class='icon-move move-item' ></i><i class='icon-remove delete-item'></i></div>
+                  <span class='item-text "+done_item_class+"' maxlength='15' >"+item_val[0]+"</span></div>
                   <div class='item-color-labels'></div>
                   </li>"
 
@@ -427,8 +428,12 @@ $(".submit-updated-color").live
     localStorage.labels = JSON.stringify labels
     alert "Updated"
 
-$(".ul-items li .icon-wrench.update-item-li").live
+#$(".ul-items li .icon-wrench.update-item-li").live
+$("span.item-text").live
   click: (e) ->
+    editable = $(this).attr("contentEditable")
+    if not editable
+      $(this).attr("contentEditable", true)
     $closest_li = $(@).closest("li")
     $labels_div = $closest_li.find ".item-color-labels"
     if $labels_div.attr("status") == "visible"

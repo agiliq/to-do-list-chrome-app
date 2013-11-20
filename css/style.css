@@ -51,8 +51,8 @@ li input.cb_item { /*margin-left:-12px;*/ margin-top: -1px; /*margin-right: 5px;
 .header-icons:hover {opacity: 1; zoom: 120%;}
 .header-icons i { margin-left:5px; }
 
-.item-icons { margin-right: 5px; opacity: 0.4; }
-.item-icons:hover {opacity: 1; zoom: 120%; }
+.item-icons { margin-right: 5px; opacity: 0.1; }
+.ul-items li:hover .item-icons { opacity: 0.7; }
 .item-icons i { margin-left: 5px; }
 
 .delete-item:hover, .delete-list:hover, .move-list:hover, .move-item:hover, .update-item-li { cursor: pointer }
@@ -96,3 +96,4 @@ span.label-name { position: relative; top: -8px; margin-left: 10px; font-weight:
 .submit-updated-color { margin-top: -23px; margin-left: 5px; }
 #simple-settings { color: whitesmoke; margin-top: 10px; }
 .small-gap { display: inline-block; min-width: 20px; position: relative; top: -8px; }
+.item-color-labels { margin-top: 10px; }

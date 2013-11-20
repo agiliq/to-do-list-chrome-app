@@ -173,6 +173,7 @@
       return update_item(e, this);
     },
     blur: function(e) {
+      $(this).removeAttr("contentEditable");
       return update_item(e, this);
     }
   });
@@ -264,7 +265,7 @@
     $("#list-row").html("");
     for (key in oldobj) {
       if (oldobj.hasOwnProperty(key)) {
-        ele = "<div id='list-" + key + "' class='well list span3' >                <div class='header_to_well'>                  <div class='list-header'>                    <span class='header-icons pull-right'>                      <i class='icon-move icon-white move-list '></i><i class='icon-remove icon-white delete-list'></i>                    </span>                    <span contentEditable='true' class='list-header-text'> " + oldobj[key].name + "</span>                  </div>                </div>                <div class='nano'><div class='content'><ul class='unstyled ul-items'>";
+        ele = "<div id='list-" + key + "' class='well list span3' >                <div class='header_to_well'>                  <div class='list-header'>                    <span class='header-icons pull-right'>                      <i class='icon-move icon-white move-list '></i><i class='icon-remove icon-white delete-list'></i>                    </span>                    <span class='list-header-text'> " + oldobj[key].name + "</span>                  </div>                </div>                <div class='nano'><div class='content'><ul class='unstyled ul-items'>";
         done_item_class = "";
         checked = "";
         _ref = oldobj[key].items;
@@ -295,7 +296,7 @@
               labels_html = "<div class='item-labels-box'>" + labels_html + "</div>";
             }
           }
-          ele += "<li class='item-" + item_key + ("'><div class='item-div'>" + labels_html + "                  <input type='checkbox' class='cb_item' ") + checked + " />                  <div class='item-icons pull-right'><i class='icon-wrench update-item-li'></i><i class='icon-move move-item' ></i><i class='icon-remove delete-item'></i></div>                  <span contentEditable='true' class='item-text " + done_item_class + "' maxlength='15' >" + item_val[0] + "</span></div>                  <div class='item-color-labels'></div>                  </li>";
+          ele += "<li class='item-" + item_key + ("'><div class='item-div'>" + labels_html + "                  <input type='checkbox' class='cb_item' ") + checked + " />                  <div class='item-icons pull-right'><i class='icon-move move-item' ></i><i class='icon-remove delete-item'></i></div>                  <span class='item-text " + done_item_class + "' maxlength='15' >" + item_val[0] + "</span></div>                  <div class='item-color-labels'></div>                  </li>";
         }
         ele += "</ul></div></div><div class='item-input'><input type='text' class='span3' id='item-input-" + key + "' placeholder='Enter todo and hit enter' /></div></div>";
         $("#list-row").append(ele);
@@ -538,9 +539,11 @@
     }
   });
 
-  $(".ul-items li .icon-wrench.update-item-li").live({
+  $("span.item-text").live({
     click: function(e) {
-      var $closest_li, $labels_div, item, item_labels, itemid, label_html, labels, listid, lists, obj;
+      var $closest_li, $labels_div, editable, item, item_labels, itemid, label_html, labels, listid, lists, obj;
+      editable = $(this).attr("contentEditable");
+      if (!editable) $(this).attr("contentEditable", true);
       $closest_li = $(this).closest("li");
       $labels_div = $closest_li.find(".item-color-labels");
       if ($labels_div.attr("status") === "visible") {
