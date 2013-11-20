@@ -21,8 +21,10 @@ initial_settings = ->
   $("#disable-color-labels").prop("checked", settings.disable_color_coding)
   if settings.disable_color_coding
     $(".item-labels-box").addClass "hide"
+    $(".item-color-labels").addClass "hide"
   else
     $(".item-labels-box").removeClass "hide"
+    $(".item-color-labels").removeClass "hide"
 
 
 $("#list-name-input").live
@@ -504,6 +506,8 @@ $("#disable-color-labels").change ->
   localStorage.settings = JSON.stringify settings
   if checked
     $(".item-labels-box").addClass "hide"
+    $(".item-color-labels").addClass "hide"
   else
     $(".item-labels-box").removeClass "hide"
+    $(".item-color-labels").removeClass "hide"
 

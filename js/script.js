@@ -69,9 +69,11 @@
     settings = JSON.parse(localStorage.settings);
     $("#disable-color-labels").prop("checked", settings.disable_color_coding);
     if (settings.disable_color_coding) {
-      return $(".item-labels-box").addClass("hide");
+      $(".item-labels-box").addClass("hide");
+      return $(".item-color-labels").addClass("hide");
     } else {
-      return $(".item-labels-box").removeClass("hide");
+      $(".item-labels-box").removeClass("hide");
+      return $(".item-color-labels").removeClass("hide");
     }
   };
 
@@ -619,9 +621,11 @@
     settings.disable_color_coding = checked;
     localStorage.settings = JSON.stringify(settings);
     if (checked) {
-      return $(".item-labels-box").addClass("hide");
+      $(".item-labels-box").addClass("hide");
+      return $(".item-color-labels").addClass("hide");
     } else {
-      return $(".item-labels-box").removeClass("hide");
+      $(".item-labels-box").removeClass("hide");
+      return $(".item-color-labels").removeClass("hide");
     }
   });
 
