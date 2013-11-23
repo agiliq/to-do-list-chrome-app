@@ -6,13 +6,17 @@ Get it from app store at
 
 ### Features
 
-1. Create todo list
-2. Create todo
-3. Mark as done
-4. Delete
-5. Totally offline
+* Create todo list
+* Create todo items
+* Mark as done
+* Delete
+* Reorder lists and items
+* Color coded todos
+* All features work offline
+* (Optional) Sync if you are signed in to chrome
+
 
 
 Screenshot
 
-![screenshot](./to-do-list.png?raw=true)
+![screenshot](./to-do-list-screenshot.png?raw=true)
