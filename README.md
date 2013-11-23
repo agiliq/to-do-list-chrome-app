@@ -19,4 +19,4 @@ Get it from app store at
 
 Screenshot
 
-![screenshot](./to-do-screenshot.png?raw=true)
+![screenshot](./to-do-list-screenshot.png?raw=true)
