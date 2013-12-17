@@ -134,6 +134,9 @@
     },
     blur: function(e) {
       return update_listname(e, this);
+    },
+    click: function(e) {
+      return $(this).attr("contentEditable", true);
     }
   });
 

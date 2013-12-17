@@ -88,6 +88,8 @@ $('.list-header-text').live
     update_listname(e, @)
   blur: (e) ->
     update_listname(e, @)
+  click: (e) ->
+    $(this).attr("contentEditable", true)
 
 
 update_listname = (e, that) ->
